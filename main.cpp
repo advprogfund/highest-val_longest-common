@@ -56,15 +56,20 @@ void ReadInputData(std::string fileSource)
                 if (charsPlaced < charsInAlphabet)
                 {
                     std::string result = "";
-                    char c = '';
+                    int valLength = result.size() - 2 - 1;
+                    const char* c;
                     int charVal = 0;
 
+
                     ss >> result;
-                    c = result.substr(0, 1);
-                    charVal = std::stoi(result.substr(2, result.size() - 2));
+                    c = (result.substr(0, 1)).c_str();
+                    charVal = std::stoi(currLine.substr(2, valLength));
 
                     std::cout << "char " << c << " with val " << charVal << std::endl;
-                    valMap[c] = charVal;
+                    char test = *c;
+                    valMap[test] = charVal;
+
+                    charsPlaced++;
                 }
                 else
                 {
