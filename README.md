@@ -24,7 +24,7 @@ Question 1:
 10: 0.07400
 Please refer to the chart image included in the repository files.
 
-Question 2: The recurrence equation is 
+Question 2: The recurrence equation is a summation which begins with i and j as base cases. i and j are compared, and if a match is found, a "working" i and j is used, acting as an offset to track data found later in a string (or other similar data structure) whilst maintaining that previous place as the beginning. The working i and working j are i + 1 and j + 1 respectively within for- or while-loops. By using these loops, the program can recurrently iterate further down a string to measure the longest similar subsequence shared between both strings. It is important to maintain the original position in HVLCS so that once the match ends, a subsequence can be derived which is later used for many purposes such as being returned to the user in this program.
 
 Question 3: In order to compute the HVLCS of strings 1 and 2, one would follow a similar procedure to the code above. With the given data, for each character in the first string, the second string should be checked for characters in common. When a common character is found, each consecutive character from that point in both strings should be compared against each other, incrementing a size until they are either no longer consistent or one of the strings end. In order to maintain weighted values for different characters, it would be necessary to maintain a data structure (such as a map) specifying these values for each character used: it would be required either to have an assigned value for every character present amongst the union of the strings or to use a default case, such as each non-specified character being worth 0 or 1.
 
