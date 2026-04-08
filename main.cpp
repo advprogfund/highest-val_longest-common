@@ -57,7 +57,6 @@ void ReadInputData(std::string fileSource)
                 // Citation: https://stackoverflow.com/questions/216068/parsing-integers-from-a-line
                 std::stringstream ss(currLine);
 
-                //for (int i = 0; i < charsInAlphabet; i++)
                 if (charsPlaced < charsInAlphabet)
                 {
                     std::string result = "";
@@ -92,7 +91,6 @@ void ReadInputData(std::string fileSource)
                     else
                     {
                         // Stop taking in input and end
-                        //source.close();
                     }
                 }
             }
@@ -121,24 +119,12 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 
     std::string subsequence;
 
-    //std::cout << str1 << std::endl;
-    //std::cout << str2 << std::endl;
-    //if (str1.size() > str2.size())
-    //{
-    //    std::cout << "swap" << std::endl;
-    //    std::string temp = str2;
-    //    str2 = str1;
-    //    str1 = temp;
-    //}
-
     // For each character in one string, check each character in the second string for the longest consecutive match
     // between the two strings. Maintain storage of the longest substring indexes and/or substring with length.
     for (int i = 0; i < str1.size(); i++)
     {
-        // Retrieve character (I use two chars to get around const char* since char is easier to work with for me)
+        // Retrieve character
         const char* checkingChar = (str1.substr(i, 1)).c_str();
-        //char checkingChar = inp;
-        //char checkingChar = str1[i];
         int matchLength = 0;
 
         // Check the other string for occurrences of this character, then check consecutives for longer matches.
@@ -154,27 +140,12 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
                 int working_i = i + 1;
                 int working_j = j + 1;
 
-                //const char* nextChar1 = ((str1.substr(working_i + 1, 1))).c_str();
-                //const char* nextChar2 = ((str2.substr(working_j + 1, 1))).c_str();
-
-                //while (strcmp(str1.at(working_i), str2.at(working_j)) == 0)
-                //while (str1.at(working_i) == str2.at(working_j))   // Not using strcmp makes having whitespace in subsequence impossible
-                //if ( ((str1.substr(working_i, 1)).c_str()) != '\n' && ((str1.substr(working_i, 1)).c_str()) != nullptr
-                //&& ((str2.substr(working_j, 1)).c_str()) != '\n' && ((str2.substr(working_j, 1)).c_str()) != nullptr )
-                //if (!( ((str1.substr(working_i, 1)).c_str()).isEmpty() || ((str2.substr(working_j, 1)).c_str()).isEmpty() ))
-                //if ( ((((str1.substr(working_i, 1)).c_str()) != nullptr && ((str2.substr(working_j, 1)).c_str()) != nullptr )) )
-                //if ( !( std::isspace((str1.substr(working_i, 1)).c_str()) && std::isspace((str2.substr(working_j, 1)).c_str()) ) )
-                // while (strcmp(((str1.substr(working_i, 1)).c_str()), ((str2.substr(working_j, 1)).c_str())) = 0)   // Do not need to worry about space since whitespace can't be given a value in map
-                //while (strcmp(nextChar1, nextChar2) == 0)
                 while (strcmp( ((str1.substr(working_i, 1)).c_str()), ((str2.substr(working_j, 1)).c_str()) ) == 0)
                 {
-                    //matchLength++;
                     char toPlace = *((str1.substr(working_i, 1)).c_str());
                     matchLength += valMap.at(toPlace);
                     working_i++;
                     working_j++;
-
-                    //std::cout << *((str1.substr(working_i, 1)).c_str()) << std::endl;
 
                     char inefficientChar1 = *((str1.substr(working_i, 1)).c_str());
                     char inefficientChar2 = *((str2.substr(working_j, 1)).c_str());
@@ -183,10 +154,6 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
                         std::cout << "newline" << std::endl;
                         break;
                     }
-
-                    //std::cout << ((str1.substr(working_i, 3))) << "1   2" << ((str2.substr(working_j, 3))) << std::endl;
-                    //nextChar1 = ((str1.substr(working_i + 1, 1))).c_str();
-                    //nextChar2 = ((str2.substr(working_j + 1, 1))).c_str();
                 }
 
                 // Match has ended
@@ -218,7 +185,8 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 
 int main()
 {
-    clock_t start = clock();    // TIMER CREDIT: https://stackoverflow.com/questions/39181930/how-do-i-get-the-clion-debugger-console-to-tell-me-how-many-seconds-my-program-t#39438574
+    // Timer used for Question 1 response
+    //clock_t start = clock();    // TIMER CREDIT: https://stackoverflow.com/questions/39181930/how-do-i-get-the-clion-debugger-console-to-tell-me-how-many-seconds-my-program-t#39438574
     std::string finalSubsequence;
 
     // Primary Operations
@@ -234,9 +202,9 @@ int main()
     WriteOutputData("_output/output.out", result);
 
     // Timer referenced from: https://stackoverflow.com/questions/39181930/how-do-i-get-the-clion-debugger-console-to-tell-me-how-many-seconds-my-program-t#39438574
-    clock_t stop = clock();
-    double elapsed = (double) (stop - start) / CLOCKS_PER_SEC;
-    printf("\nTime elapsed: %.5f\n", elapsed);
+    //clock_t stop = clock();
+    //double elapsed = (double) (stop - start) / CLOCKS_PER_SEC;
+    //printf("\nTime elapsed: %.5f\n", elapsed);
 
     return 0;
 }
