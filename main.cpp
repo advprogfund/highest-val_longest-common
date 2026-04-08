@@ -164,6 +164,15 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
                     working_i++;
                     working_j++;
 
+                    std::cout << *((str1.substr(working_i, 1)).c_str()) << std::endl;
+                    char inefficientChar1 = *((str1.substr(working_i, 1)).c_str());
+                    char inefficientChar2 = *((str2.substr(working_j, 1)).c_str());
+                    if (inefficientChar1 == '\n' || inefficientChar2 == '\n')
+                    {
+                        std::cout << "newline" << std::endl;
+                        break;
+                    }
+
                     //std::cout << ((str1.substr(working_i, 3))) << "1   2" << ((str2.substr(working_j, 3))) << std::endl;
                     //nextChar1 = ((str1.substr(working_i + 1, 1))).c_str();
                     //nextChar2 = ((str2.substr(working_j + 1, 1))).c_str();
