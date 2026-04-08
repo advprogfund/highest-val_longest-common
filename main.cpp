@@ -12,6 +12,10 @@ std::unordered_map<char, int> valMap;
 std::string str1 = "";
 std::string str2 = "";
 
+// These are not needed in an efficient implementation but will make managing information easier.
+std::string longestSubsequence = "";
+int longestSubsequenceLength = 0;
+
 // // // // // // //
 
 void ReadInputData(std::string fileSource)
@@ -99,28 +103,67 @@ void ReadInputData(std::string fileSource)
     }
 }
 
-std::string DetermineOptimalSubsequence(String str1, String str2)
+std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 {
     // A function which takes in two strings and attempts to discover the greatest subsequence shared between them.
     // Return the substring found, as the specification only asks for any one of the longest substrings. Include the
     // length of this substring when returning in main (store the value globally or calculate manually before exit).
+
+    std::string subsequence;
 
     // For each character in one string, check each character in the second string for the longest consecutive match
     // between the two strings. Maintain storage of the longest substring indexes and/or substring with length.
     for (int i = 0; i < str1.size(); i++)
     {
         // Retrieve character (I use two chars to get around const char* since char is easier to work with for me)
-        const char* inp = (str1.substr(i, 1)).c_str();
-        char checkingChar = inp;
+        const char* checkingChar = (str1.substr(i, 1)).c_str();
+        //char checkingChar = inp;
+        //char checkingChar = str1[i];
+        int matchLength = 0;
 
         // Check the other string for occurrences of this character, then check consecutives for longer matches.
         for (int j = 0; j < str2.size(); j++)
         {
+            const char* compareToChar = (str2.substr(j, 1)).c_str();
 
+            if (strcmp(checkingChar, compareToChar) == 0)
+            {
+                matchLength = 1;
+                int working_i = i + 1;
+                int working_j = j + 1;
+
+                //while (strcmp(str1.at(working_i), str2.at(working_j)) == 0)
+                while (str1.at(working_i) == str2.at(working_j))
+                {
+                    matchLength++;
+                    working_i++;
+                    working_j++;
+                }
+
+                // Match has ended
+                // Length starts at 0, so the first existing subsequence always work; therefore, use equals too.
+                if (matchLength >= longestSubsequenceLength)
+                {
+                    // Setting two longest subsequence variables is unnecessary but thorough to make sure data is
+                    // retained if not immediately stored upon return of this function.
+
+                    // Either str1 or str2 will function the same since it should be the same if no mistake made.
+                    // Will use both str1 and str2 for the sake of testing here, but in a real-world implementation,
+                    // would make more sense to only use one regardless.
+                    subsequence = str1.substr(i, working_i);
+                    longestSubsequence = str2.substr(j, working_j);
+                    longestSubsequenceLength = matchLength;
+                }
+            }
         }
     }
 
-    return "";
+    // Both strings have been searched for substring. An improvement which could be made if time complexity was a priority
+    // would be to stop checking as soon as the length of the greatest subsequence exceeds the number to check left from
+    // str1, as it becomes impossible for a new substring to emerge at that point.
+
+    // Return the local longestSubsequence; longestSubsequenceLength can be retrieved globally or manually calculated.
+    return subsequence;
 }
 
 
@@ -128,16 +171,21 @@ int main()
 {
     std::string finalSubsequence;
 
-    try
-    {
+    //try
+    //{
         ReadInputData("input.in");
-        finalSubsequence = DetermineOptimalSubsequence(this.str1, this.str2);
-    }
-    catch (...)
-    {
-        std::cout << "Fatal error" << std::endl;
-    }
+        finalSubsequence = DetermineOptimalSubsequence(str1, str2);
+    //}
+    //catch (...)
+    //{
+    //    std::cout << "Fatal error" << std::endl;
+    //}
 
-    std::cout << "result test" << std::endl;
+    std::cout << "The longest subsequence is \"" <<
+    finalSubsequence <<
+    "\" with a length of " <<
+    longestSubsequenceLength <<
+    "." << std::endl;
+
     return 0;
 }
