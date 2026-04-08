@@ -99,13 +99,45 @@ void ReadInputData(std::string fileSource)
     }
 }
 
+std::string DetermineOptimalSubsequence(String str1, String str2)
+{
+    // A function which takes in two strings and attempts to discover the greatest subsequence shared between them.
+    // Return the substring found, as the specification only asks for any one of the longest substrings. Include the
+    // length of this substring when returning in main (store the value globally or calculate manually before exit).
+
+    // For each character in one string, check each character in the second string for the longest consecutive match
+    // between the two strings. Maintain storage of the longest substring indexes and/or substring with length.
+    for (int i = 0; i < str1.size(); i++)
+    {
+        // Retrieve character (I use two chars to get around const char* since char is easier to work with for me)
+        const char* inp = (str1.substr(i, 1)).c_str();
+        char checkingChar = inp;
+
+        // Check the other string for occurrences of this character, then check consecutives for longer matches.
+        for (int j = 0; j < str2.size(); j++)
+        {
+
+        }
+    }
+
+    return "";
+}
+
 
 int main()
 {
-    // Time calculation using Chrono citation: https://www.geeksforgeeks.org/cpp/measure-execution-time-function-cpp/
-    // Start tracking time as the program begins using chrono.
+    std::string finalSubsequence;
 
-    ReadInputData("input.in");
+    try
+    {
+        ReadInputData("input.in");
+        finalSubsequence = DetermineOptimalSubsequence(this.str1, this.str2);
+    }
+    catch (...)
+    {
+        std::cout << "Fatal error" << std::endl;
+    }
 
+    std::cout << "result test" << std::endl;
     return 0;
 }
