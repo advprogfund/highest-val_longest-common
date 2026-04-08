@@ -103,6 +103,15 @@ void ReadInputData(std::string fileSource)
     }
 }
 
+void WriteOutputData(std::string fileTarget, std::string data)
+{
+    std::ofstream target(fileTarget);
+
+    target << data;
+
+    target.close();
+}
+
 std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 {
     // A function which takes in two strings and attempts to discover the greatest subsequence shared between them.
@@ -132,12 +141,21 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
                 int working_i = i + 1;
                 int working_j = j + 1;
 
+                //const char* nextChar1 = ((str1.substr(working_i + 1, 1))).c_str();
+                //const char* nextChar2 = ((str2.substr(working_j + 1, 1))).c_str();
+
                 //while (strcmp(str1.at(working_i), str2.at(working_j)) == 0)
-                while (str1.at(working_i) == str2.at(working_j))
+                //while (str1.at(working_i) == str2.at(working_j))   // Not using strcmp makes having whitespace in subsequence impossible
+                while (strcmp( ((str1.substr(working_i, 1)).c_str()), ((str2.substr(working_j, 1)).c_str()) ) == 0)
+                //while (strcmp(nextChar1, nextChar2) == 0)
                 {
                     matchLength++;
                     working_i++;
                     working_j++;
+
+                    //std::cout << ((str1.substr(working_i, 3))) << "1   2" << ((str2.substr(working_j, 3))) << std::endl;
+                    //nextChar1 = ((str1.substr(working_i + 1, 1))).c_str();
+                    //nextChar2 = ((str2.substr(working_j + 1, 1))).c_str();
                 }
 
                 // Match has ended
@@ -173,7 +191,7 @@ int main()
 
     //try
     //{
-        ReadInputData("input.in");
+        ReadInputData("_input/input.in");
         finalSubsequence = DetermineOptimalSubsequence(str1, str2);
     //}
     //catch (...)
@@ -181,11 +199,22 @@ int main()
     //    std::cout << "Fatal error" << std::endl;
     //}
 
-    std::cout << "The longest subsequence is \"" <<
-    finalSubsequence <<
-    "\" with a length of " <<
-    longestSubsequenceLength <<
-    "." << std::endl;
+    // Old Code
+    // Old print procedure; does not properly follow specification
+    //std::cout << "The longest subsequence is \"" <<
+    //finalSubsequence <<
+    //"\" with a length of " <<
+    //longestSubsequenceLength <<
+    //"." << std::endl;
+    //
+    //std::cout << longestSubsequenceLength << '\n' << finalSubsequence << std::endl;
+
+    // Create a string object so it can both be outputted in runtime and written to a file.
+    std::cout << '\n';
+    std::string result = std::to_string(longestSubsequenceLength) + '\n' + finalSubsequence;
+    std::cout << result;
+
+    WriteOutputData("_output/output.out", result);
 
     return 0;
 }
