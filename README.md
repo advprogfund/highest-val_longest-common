@@ -9,3 +9,17 @@ To use this program, please reference the "template.in" file to learn how inputs
 Files used in the program are found in the cmake-build-debug folder due to the way CLion (the IDE used for development) works by default. The two relevant folders are "_input" and "_output", and, as their names imply, they are used for input and output respectively.
 
 In order to enter new data, please replace the "input.in" file with the desired contents according to the template. Upon running, the result will be printed to console as well as appear in a new "output.out" file.
+
+
+Question 1:
+1: 0.04200
+2: 0.02500
+3: 0.04800
+4: 0.66900
+5: 0.03600
+6: 0.02700
+7: 0.04200
+8: 0.05100
+9: 0.06900
+10: 0.07400
+Please refer to the chart image included in the repository files.
