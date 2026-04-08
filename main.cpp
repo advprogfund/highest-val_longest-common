@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 #include <map>
 #include <chrono>
+#include <cctype>
 
 // Global Variables //
 int charsInAlphabet = 0;
@@ -137,7 +138,9 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 
             if (strcmp(checkingChar, compareToChar) == 0)
             {
-                matchLength = 1;
+                //matchLength = 1;
+                char toPlace_first = *checkingChar;
+                matchLength += valMap.at(toPlace_first);
                 int working_i = i + 1;
                 int working_j = j + 1;
 
@@ -146,10 +149,18 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 
                 //while (strcmp(str1.at(working_i), str2.at(working_j)) == 0)
                 //while (str1.at(working_i) == str2.at(working_j))   // Not using strcmp makes having whitespace in subsequence impossible
-                while (strcmp( ((str1.substr(working_i, 1)).c_str()), ((str2.substr(working_j, 1)).c_str()) ) == 0)
+                //if ( ((str1.substr(working_i, 1)).c_str()) != '\n' && ((str1.substr(working_i, 1)).c_str()) != nullptr
+                //&& ((str2.substr(working_j, 1)).c_str()) != '\n' && ((str2.substr(working_j, 1)).c_str()) != nullptr )
+                //if (!( ((str1.substr(working_i, 1)).c_str()).isEmpty() || ((str2.substr(working_j, 1)).c_str()).isEmpty() ))
+                //if ( ((((str1.substr(working_i, 1)).c_str()) != nullptr && ((str2.substr(working_j, 1)).c_str()) != nullptr )) )
+                //if ( !( std::isspace((str1.substr(working_i, 1)).c_str()) && std::isspace((str2.substr(working_j, 1)).c_str()) ) )
+                // while (strcmp(((str1.substr(working_i, 1)).c_str()), ((str2.substr(working_j, 1)).c_str())) = 0)   // Do not need to worry about space since whitespace can't be given a value in map
                 //while (strcmp(nextChar1, nextChar2) == 0)
+                while (strcmp( ((str1.substr(working_i, 1)).c_str()), ((str2.substr(working_j, 1)).c_str()) ) == 0)
                 {
-                    matchLength++;
+                    //matchLength++;
+                    char toPlace = *((str1.substr(working_i, 1)).c_str());
+                    matchLength += valMap.at(toPlace);
                     working_i++;
                     working_j++;
 
