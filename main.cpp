@@ -121,6 +121,16 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 
     std::string subsequence;
 
+    //std::cout << str1 << std::endl;
+    //std::cout << str2 << std::endl;
+    //if (str1.size() > str2.size())
+    //{
+    //    std::cout << "swap" << std::endl;
+    //    std::string temp = str2;
+    //    str2 = str1;
+    //    str1 = temp;
+    //}
+
     // For each character in one string, check each character in the second string for the longest consecutive match
     // between the two strings. Maintain storage of the longest substring indexes and/or substring with length.
     for (int i = 0; i < str1.size(); i++)
@@ -164,7 +174,8 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
                     working_i++;
                     working_j++;
 
-                    std::cout << *((str1.substr(working_i, 1)).c_str()) << std::endl;
+                    //std::cout << *((str1.substr(working_i, 1)).c_str()) << std::endl;
+
                     char inefficientChar1 = *((str1.substr(working_i, 1)).c_str());
                     char inefficientChar2 = *((str2.substr(working_j, 1)).c_str());
                     if (inefficientChar1 == '\n' || inefficientChar2 == '\n')
@@ -207,34 +218,25 @@ std::string DetermineOptimalSubsequence(std::string str1, std::string str2)
 
 int main()
 {
+    clock_t start = clock();    // TIMER CREDIT: https://stackoverflow.com/questions/39181930/how-do-i-get-the-clion-debugger-console-to-tell-me-how-many-seconds-my-program-t#39438574
     std::string finalSubsequence;
 
-    //try
-    //{
-        ReadInputData("_input/input.in");
-        finalSubsequence = DetermineOptimalSubsequence(str1, str2);
-    //}
-    //catch (...)
-    //{
-    //    std::cout << "Fatal error" << std::endl;
-    //}
-
-    // Old Code
-    // Old print procedure; does not properly follow specification
-    //std::cout << "The longest subsequence is \"" <<
-    //finalSubsequence <<
-    //"\" with a length of " <<
-    //longestSubsequenceLength <<
-    //"." << std::endl;
-    //
-    //std::cout << longestSubsequenceLength << '\n' << finalSubsequence << std::endl;
+    // Primary Operations
+    ReadInputData("_input/input.in");
+    finalSubsequence = DetermineOptimalSubsequence(str1, str2);
 
     // Create a string object so it can both be outputted in runtime and written to a file.
     std::cout << '\n';
     std::string result = std::to_string(longestSubsequenceLength) + '\n' + finalSubsequence;
     std::cout << result;
 
+    // Write data to file
     WriteOutputData("_output/output.out", result);
+
+    // Timer referenced from: https://stackoverflow.com/questions/39181930/how-do-i-get-the-clion-debugger-console-to-tell-me-how-many-seconds-my-program-t#39438574
+    clock_t stop = clock();
+    double elapsed = (double) (stop - start) / CLOCKS_PER_SEC;
+    printf("\nTime elapsed: %.5f\n", elapsed);
 
     return 0;
 }
